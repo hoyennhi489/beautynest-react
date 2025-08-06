@@ -1,0 +1,73 @@
+/* Reset */
+body, h1, h2, p, a {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: white;
+  color: #1f2937;
+}
+
+a {
+  text-decoration: none;
+  color: #1f2937;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #ec4899;
+}
+
+/* Layout */
+.app {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.header {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #db2777;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.main-content {
+  padding: 2rem 0;
+}
+
+.main-content h2 {
+  font-size: 28px;
+  margin-bottom: 1rem;
+}
+
+.main-content p {
+  font-size: 18px;
+  color: #6b7280;
+}
