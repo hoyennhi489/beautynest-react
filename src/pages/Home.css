@@ -1,0 +1,38 @@
+.hero {
+  text-align: center;
+  padding: 80px 20px 40px;
+  background-color: #fff5fb;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+}
+
+.shop-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: #ff3399;
+  color: #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.shop-btn:hover {
+  background-color: #e60073;
+}
+
+.featured-section {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.featured-section h2 {
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+}
