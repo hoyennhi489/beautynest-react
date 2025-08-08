@@ -34,6 +34,42 @@ const products = [
     "price": 42,
     "image": "https://www.kiehls.com.vn/on/demandware.static/-/Sites-kiehls-vn-ng-Library/vi_VN/dwa9991e43/images/optimize/Tos_Team/review-toner-hoa-cuc/review-toner-hoa-cuc-4.jpg",
     "description": "Soothes skin and tightens pores."
+  },
+  {
+    "id": 5,
+    "name": "Mineral Sunscreen SPF50",
+    "category": "skincare",
+    "brand": "La Roche‑Posay",
+    "price": 28,
+    "image": "https://cdn.nhathuoclongchau.com.vn/unsafe/768x0/filters:quality(90)/https://cms-prod.s3-sgn09.fptcloud.com/lrp_anthelios_uvmune_400_oil_gel_cream_ap_bottle_packshot_front_f43835fdee.png",
+    "description": "High protection, water‑resistant."
+  },
+  {
+    "id": 6,
+    "name": "Niacinamide Clarifying Serum",
+    "category": "skincare",
+    "brand": "The Inkey List",
+    "price": 23,
+    "image": "https://laskin.vn/wp-content/uploads/2022/09/Tinh-chat-The-Inkey-List-Niacinamide-tri-mun-giam-tham.jpg",
+    "description": "Reduces redness and controls oil."
+  },
+  {
+    "id": 7,
+    "name": "Retinol Youth Serum",
+    "category": "skincare",
+    "brand": "Skinceuticals",
+    "price": 45,
+    "image": "https://laskin.vn/wp-content/uploads/2022/10/google-shopping-tinh-chat-retino.jpg",
+    "description": "Anti‑aging, improves texture."
+  },
+  {
+    "id": 8,
+    "name": "Hyaluronic Toner",
+    "category": "skincare",
+    "brand": "Simple",
+    "price": 17,
+    "image": "https://product.hstatic.net/1000006063/product/bt_7caffeea772a4520b62030105396043d_1024x1024.jpg",
+    "description": "Balances pH and boosts hydration."
   }
 ];
 
