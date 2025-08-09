@@ -1,22 +1,36 @@
-import React from "react";
-import products from "../data/products";
+import React, { useContext } from "react";
 import "./Products.css";
+import { CartContext } from "../context/CartContext";
+import products from "../data/products";
 
-export default function Products() {
+const Products = () => {
+  const { addToCart } = useContext(CartContext);
+
   return (
-    <div>
-      <h2>Our Products</h2>
-      <div className="product-grid">
-        {products.map((item) => (
-          <div className="product-card" key={item.id}>
-            <img src={item.image} alt={item.name} />
-            <h3>{item.name}</h3>
-            <p className="description">{item.description}</p>
-            <p className="price">${item.price.toFixed(2)}</p>
-            <button>Add to Cart</button>
+    <div className="products-page">
+      <h1 className="products-title">All Products</h1>
+      <div className="products-grid">
+        {products.map((product) => (
+          <div className="product-card" key={product.id}>
+            <img
+              src={product.image}
+              alt={product.name}
+              className="product-image"
+            />
+            <h3 className="product-name">{product.name}</h3>
+            <p className="product-brand">{product.brand}</p>
+            <p className="product-price">${product.price}</p>
+            <button
+              className="add-to-cart-btn"
+              onClick={() => addToCart(product)}
+            >
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>
     </div>
   );
-}
+};
+
+export default Products;
