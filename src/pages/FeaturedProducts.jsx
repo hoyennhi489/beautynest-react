@@ -9,7 +9,7 @@ const featured = [
     brand: "CeraVe",
     price: 25,
     image: "https://cdn.nhathuoclongchau.com.vn/unsafe/https://cms-prod.s3-sgn09.fptcloud.com/DSC_00420_9eca1db0a1.jpg",
-    description: "Mild, soap‑free cleanser for all skin types."
+    description: "Mild, soap-free cleanser for all skin types."
   },
   {
     id: 2,
@@ -33,18 +33,16 @@ const featured = [
 
 export default function FeaturedProducts() {
   return (
-    <div>
-      <div className="product-grid">
-        {featured.map((item) => (
-          <div className="product-card" key={item.id}>
-            <img src={item.image} alt={item.name} />
-            <h3>{item.name}</h3>
-            <p className="description">{item.description}</p>
-            <p className="price">${item.price.toFixed(2)}</p>
-            <button>Add to Cart</button>
-          </div>
-        ))}
-      </div>
+    <div className="products-grid">
+      {featured.map((item) => (
+        <div className="product-card" key={item.id}>
+          <img className="product-image" src={item.image} alt={item.name} />
+          <h3 className="product-name">{item.name}</h3>
+          <p className="product-brand">{item.brand}</p>
+          <p className="product-price">${item.price.toFixed(2)}</p>
+          <button className="add-to-cart-btn">Add to Cart</button>
+        </div>
+      ))}
     </div>
   );
 }
