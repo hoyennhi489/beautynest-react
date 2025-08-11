@@ -30,7 +30,7 @@
 
 .subscribe-form button {
   padding: 10px 20px;
-  background-color: #ff4db8;
+  background-color: #ff69b4;
   color: white;
   border: none;
   border-radius: 4px;
@@ -40,7 +40,7 @@
 }
 
 .subscribe-form button:hover {
-  background-color: #e040a2;
+  background-color: #ff1493;
 }
 
 .social-icons {
