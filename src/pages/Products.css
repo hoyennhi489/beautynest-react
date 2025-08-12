@@ -7,7 +7,7 @@
 }
 
 .product-card {
-  width: calc(33.333% - 13.33px);
+  flex: 0 1 calc(33.333% - 20px);
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 12px;
@@ -63,4 +63,9 @@
 
 .add-to-cart-btn:hover {
   background: #ff1493;
+}
+
+.products-grid:after {
+  content: "";
+  flex: auto;
 }

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './FeaturedProducts.css';
+import { CartContext } from '../context/CartContext';
 
 const featured = [
   {
@@ -32,6 +33,8 @@ const featured = [
 ];
 
 export default function FeaturedProducts() {
+  const { addToCart } = useContext(CartContext);
+
   return (
     <div className="products-grid">
       {featured.map((item) => (
@@ -40,7 +43,12 @@ export default function FeaturedProducts() {
           <h3 className="product-name">{item.name}</h3>
           <p className="product-brand">{item.brand}</p>
           <p className="product-price">${item.price.toFixed(2)}</p>
-          <button className="add-to-cart-btn">Add to Cart</button>
+          <button
+            className="add-to-cart-btn"
+            onClick={() => addToCart(item)}
+          >
+            Add to Cart
+          </button>
         </div>
       ))}
     </div>
