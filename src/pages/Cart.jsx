@@ -1,10 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "../context/CartContext";
 import "./Cart.css";
 
 export default function Cart() {
-  const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
+  const { cart, removeFromCart, updateQuantity, setCart } = useContext(CartContext);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, [setCart]);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -14,7 +25,7 @@ export default function Cart() {
   const handleCheckout = () => {
     if (cart.length === 0) return;
     setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 3000); // Tự ẩn sau 3s
+    setTimeout(() => setShowSuccess(false), 3000);
   };
 
   return (
@@ -32,11 +43,24 @@ export default function Cart() {
               </div>
               <div className="cart-controls">
                 <div className="quantity-controls">
-                  <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                  <button
+                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                  >
+                    -
+                  </button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                  <button
+                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  >
+                    +
+                  </button>
                 </div>
-                <button className="remove-btn" onClick={() => removeFromCart(item.id)}>Remove</button>
+                <button
+                  className="remove-btn"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  Remove
+                </button>
               </div>
             </div>
           ))}
@@ -45,7 +69,9 @@ export default function Cart() {
             <div className="summary-text">
               <strong>Total:</strong> ${totalPrice.toFixed(2)}
             </div>
-            <button className="checkout-btn" onClick={handleCheckout}>Order Now</button>
+            <button className="checkout-btn" onClick={handleCheckout}>
+              Order Now
+            </button>
           </div>
 
           {showSuccess && (
