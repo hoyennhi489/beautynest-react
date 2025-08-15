@@ -3,13 +3,13 @@ import './FeaturedProducts.css';
 import { CartContext } from '../context/CartContext';
 
 const featured = [
-  {
+{
     id: 1,
     name: "Gentle Foaming Cleanser",
     category: "skincare",
     brand: "CeraVe",
     price: 25,
-    image: "https://cdn.nhathuoclongchau.com.vn/unsafe/https://cms-prod.s3-sgn09.fptcloud.com/DSC_00420_9eca1db0a1.jpg",
+    image: "cerave.jpg",
     description: "Mild, soap-free cleanser for all skin types."
   },
   {
@@ -18,7 +18,7 @@ const featured = [
     category: "skincare",
     brand: "The Ordinary",
     price: 20,
-    image: "https://bizweb.dktcdn.net/thumb/1024x1024/100/379/640/products/ordinary-ascorbic-acid-alpha-arbutin-30ml-1024x1024.jpg?v=1583808360447",
+    image: "the-ordinary.jpg",
     description: "Helps brighten skin and fade pigmentation."
   },
   {
@@ -27,7 +27,7 @@ const featured = [
     category: "skincare",
     brand: "Neutrogena",
     price: 24,
-    image: "https://images.ctfassets.net/bcjr30vxh6td/249vyCPCWOePqx9Reg2Y7O/217ce1ad98092d44f138083ad7a1e1c0/6811047_Carousel_1.webp",
+    image: "neutrogena.jpg",
     description: "Deep hydration without heaviness."
   }
 ];
