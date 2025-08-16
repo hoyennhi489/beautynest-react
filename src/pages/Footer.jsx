@@ -7,10 +7,13 @@ const Footer = () => {
   const [success, setSuccess] = useState(false);
 
   const handleSubscribe = () => {
-    if (email.trim() === "") {
-      alert("Please enter your email!");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address!");
       return;
     }
+
     setSuccess(true);
     setTimeout(() => setSuccess(false), 3000);
     setEmail("");
