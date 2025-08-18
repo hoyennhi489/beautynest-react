@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // <== thêm dòng này
+import { Link } from 'react-router-dom'; 
 import FeaturedProducts from '../pages/FeaturedProducts';
 import './Home.css';
 

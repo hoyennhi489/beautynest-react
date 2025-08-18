@@ -3,7 +3,8 @@ import { CartContext } from "../context/CartContext";
 import "./Cart.css";
 
 export default function Cart() {
-  const { cart, removeFromCart, updateQuantity, setCart } = useContext(CartContext);
+  const { cart, removeFromCart, updateQuantity, setCart, clearCart } =
+    useContext(CartContext);
   const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
@@ -24,6 +25,21 @@ export default function Cart() {
 
   const handleCheckout = () => {
     if (cart.length === 0) return;
+
+    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    const newOrder = {
+      id: Date.now(),
+      items: cart,
+      total: totalPrice.toFixed(2),
+      date: new Date().toLocaleString(),
+    };
+
+    localStorage.setItem("orders", JSON.stringify([newOrder, ...existingOrders]));
+
+    clearCart();
+    localStorage.removeItem("cart");
+
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 3000);
   };

@@ -5,6 +5,7 @@ import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Footer from './pages/Footer';
 import "./App.css";
+import Orders from "./pages/Orders";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
               <Link to="/">Home</Link>
               <Link to="/products">Products</Link>
               <Link to="/cart">Cart</Link>
+              <Link to="/orders">Orders</Link>
             </nav>
           </div>
         </header>
@@ -26,6 +28,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/orders" element={<Orders />} /> 
           </Routes>
         </main>
 
