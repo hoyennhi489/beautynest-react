@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import './FeaturedProducts.css';
 import { CartContext } from '../context/CartContext';
+import { Link } from "react-router-dom";
 
 const featured = [
-{
+  {
     id: 1,
     name: "Gentle Foaming Cleanser",
     category: "skincare",
@@ -39,8 +40,12 @@ export default function FeaturedProducts() {
     <div className="products-grid">
       {featured.map((item) => (
         <div className="product-card" key={item.id}>
-          <img className="product-image" src={item.image} alt={item.name} />
-          <h3 className="product-name">{item.name}</h3>
+          <Link to={`/products/${item.id}`}>
+            <img className="product-image" src={item.image} alt={item.name} />
+          </Link>
+          <h3 className="product-name">
+            <Link to={`/products/${item.id}`}>{item.name}</Link>
+          </h3>
           <p className="product-brand">{item.brand}</p>
           <p className="product-price">${item.price.toFixed(2)}</p>
           <button

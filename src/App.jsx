@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Footer from './pages/Footer';
 import "./App.css";
 import Orders from "./pages/Orders";
+import ProductDetail from "./pages/ProductDetail";
 
 export default function App() {
   return (
@@ -13,7 +14,9 @@ export default function App() {
       <div className="app">
         <header className="header">
           <div className="container header-content">
-            <h1 className="logo">Beautynest</h1>
+            <h1 className="logo">
+              <Link to="/">Beautynest</Link>
+            </h1>
             <nav className="nav">
               <Link to="/">Home</Link>
               <Link to="/products">Products</Link>
@@ -29,6 +32,7 @@ export default function App() {
             <Route path="/products" element={<Products />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/orders" element={<Orders />} /> 
+            <Route path="/products/:id" element={<ProductDetail />} />
           </Routes>
         </main>
 

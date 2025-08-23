@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./Products.css";
 import { CartContext } from "../context/CartContext";
 import products from "../data/products";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const { addToCart } = useContext(CartContext);
@@ -12,12 +13,16 @@ const Products = () => {
       <div className="products-grid">
         {products.map((product) => (
           <div className="product-card" key={product.id}>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="product-image"
-            />
-            <h3 className="product-name">{product.name}</h3>
+            <Link to={`/products/${product.id}`}>
+              <img
+                src={product.image}
+                alt={product.name}
+                className="product-image"
+              />
+            </Link>
+            <h3 className="product-name">
+              <Link to={`/products/${product.id}`}>{product.name}</Link>
+            </h3>
             <p className="product-brand">{product.brand}</p>
             <p className="product-price">${product.price}</p>
             <button

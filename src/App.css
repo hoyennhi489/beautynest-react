@@ -1,4 +1,3 @@
-/* Reset */
 body, h1, h2, p, a {
   margin: 0;
   padding: 0;
@@ -25,7 +24,6 @@ a:hover {
   color: #ec4899;
 }
 
-/* Layout */
 .app {
   min-height: 100vh;
 }
@@ -50,7 +48,16 @@ a:hover {
 .logo {
   font-size: 24px;
   font-weight: bold;
+}
+
+.logo a {
   color: #db2777;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logo a:hover {
+  color: #ec4899;
 }
 
 .nav {
