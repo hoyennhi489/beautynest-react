@@ -89,13 +89,13 @@ export default function Cart() {
               Order Now
             </button>
           </div>
-
-          {showSuccess && (
-            <div className="success-message">
-              ✅ Successfully placed your order!
-            </div>
-          )}
         </>
+      )}
+
+      {showSuccess && (
+        <div className="success-message">
+          ✅ Successfully placed your order!
+        </div>
       )}
     </div>
   );
