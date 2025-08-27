@@ -7,6 +7,7 @@ import Footer from './pages/Footer';
 import "./App.css";
 import Orders from "./pages/Orders";
 import ProductDetail from "./pages/ProductDetail";
+import Checkout from "./pages/Checkout";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/orders" element={<Orders />} /> 
             <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </main>
 

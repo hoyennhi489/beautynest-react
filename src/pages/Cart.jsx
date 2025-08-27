@@ -1,11 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 
 export default function Cart() {
-  const { cart, removeFromCart, updateQuantity, setCart, clearCart } =
+  const { cart, removeFromCart, updateQuantity, setCart } =
     useContext(CartContext);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
@@ -22,27 +23,6 @@ export default function Cart() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
-  const handleCheckout = () => {
-    if (cart.length === 0) return;
-
-    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
-
-    const newOrder = {
-      id: Date.now(),
-      items: cart,
-      total: totalPrice.toFixed(2),
-      date: new Date().toLocaleString(),
-    };
-
-    localStorage.setItem("orders", JSON.stringify([newOrder, ...existingOrders]));
-
-    clearCart();
-    localStorage.removeItem("cart");
-
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 3000);
-  };
 
   return (
     <div className="cart-page">
@@ -85,17 +65,15 @@ export default function Cart() {
             <div className="summary-text">
               <strong>Total:</strong> ${totalPrice.toFixed(2)}
             </div>
-            <button className="checkout-btn" onClick={handleCheckout}>
+            {/* ✅ Điều hướng sang trang Checkout */}
+            <button
+              className="checkout-btn"
+              onClick={() => navigate("/checkout")}
+            >
               Order Now
             </button>
           </div>
         </>
-      )}
-
-      {showSuccess && (
-        <div className="success-message">
-          ✅ Successfully placed your order!
-        </div>
       )}
     </div>
   );
