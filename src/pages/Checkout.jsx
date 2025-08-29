@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import "./Checkout.css";
 
 export default function Checkout() {
   const { cart, clearCart } = useContext(CartContext);
