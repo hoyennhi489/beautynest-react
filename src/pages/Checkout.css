@@ -52,3 +52,22 @@
 .confirm-btn:hover {
   background: #ff1493;
 }
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.payment-methods {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.payment-methods label {
+  font-size: 0.95rem;
+  cursor: pointer;
+}
