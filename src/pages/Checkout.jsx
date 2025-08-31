@@ -10,7 +10,7 @@ export default function Checkout() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [payment, setPayment] = useState("cod");
+  const [payment, setPayment] = useState("Cash on Delivery (COD)");
   const [error, setError] = useState("");
 
   const totalPrice = cart.reduce(
@@ -19,38 +19,36 @@ export default function Checkout() {
   );
 
   const handleConfirm = () => {
-    if (!name.trim() || !phone.trim() || !address.trim()) {
-      setError("⚠️ Please fill in all fields before confirming your order.");
+    if (!name || !phone || !address) {
+      setError("⚠️ Please fill in all required fields.");
       return;
     }
-    if (!/^[0-9]{9,11}$/.test(phone)) {
-      setError("⚠️ Phone number must be 9–11 digits.");
-      return;
-    }
-    setError("");
 
-    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
     const newOrder = {
       id: Date.now(),
+      name,
+      phone,
+      address,
+      payment,
       items: cart,
       total: totalPrice.toFixed(2),
       date: new Date().toLocaleString(),
-      customer: { name, phone, address },
-      payment,
+      timestamp: Date.now(),       
+      status: "Pending",
     };
+
+    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
     localStorage.setItem("orders", JSON.stringify([newOrder, ...existingOrders]));
 
     clearCart();
     localStorage.removeItem("cart");
 
-    alert("✅ Order placed successfully!");
     navigate("/orders");
   };
 
   return (
     <div className="checkout-page">
       <h2 className="checkout-title">Checkout</h2>
-
       {error && <p className="error-message">{error}</p>}
 
       <div className="checkout-form">
@@ -76,8 +74,8 @@ export default function Checkout() {
           <label>
             <input
               type="radio"
-              value="cod"
-              checked={payment === "cod"}
+              value="Cash on Delivery (COD)"
+              checked={payment === "Cash on Delivery (COD)"}
               onChange={(e) => setPayment(e.target.value)}
             />
             Cash on Delivery (COD)
@@ -85,8 +83,8 @@ export default function Checkout() {
           <label>
             <input
               type="radio"
-              value="card"
-              checked={payment === "card"}
+              value="Credit/Debit Card"
+              checked={payment === "Credit/Debit Card"}
               onChange={(e) => setPayment(e.target.value)}
             />
             Credit/Debit Card
@@ -94,8 +92,8 @@ export default function Checkout() {
           <label>
             <input
               type="radio"
-              value="wallet"
-              checked={payment === "wallet"}
+              value="E-Wallet"
+              checked={payment === "E-Wallet"}
               onChange={(e) => setPayment(e.target.value)}
             />
             E-Wallet
