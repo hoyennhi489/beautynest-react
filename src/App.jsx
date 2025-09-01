@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
-import Footer from './pages/Footer';
+import Footer from "./pages/Footer";
 import "./App.css";
 import Orders from "./pages/Orders";
 import ProductDetail from "./pages/ProductDetail";
@@ -11,7 +11,7 @@ import Checkout from "./pages/Checkout";
 
 export default function App() {
   return (
-    <Router basename="/beautynest-react">
+    <Router>
       <div className="app">
         <header className="header">
           <div className="container header-content">
@@ -32,7 +32,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/orders" element={<Orders />} /> 
+            <Route path="/orders" element={<Orders />} />
             <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/checkout" element={<Checkout />} />
           </Routes>

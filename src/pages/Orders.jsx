@@ -14,8 +14,8 @@ export default function Orders() {
     const interval = setInterval(() => {
       setOrders((prevOrders) => {
         const updated = prevOrders.map((order) => {
-          if (order.status === "Pending") {
-            if (Date.now() - order.timestamp > 15000) { // 15 giây
+          if (order.status === "Pending" && order.timestamp) {
+            if (Date.now() - order.timestamp > 15000) {
               return { ...order, status: "Completed" };
             }
           }
@@ -91,8 +91,12 @@ export default function Orders() {
               </p>
               <p>
                 <strong>Status:</strong>{" "}
-                <span className={`status ${order.status.toLowerCase()}`}>
-                  {order.status}
+                <span
+                  className={`status ${
+                    order.status ? order.status.toLowerCase() : ""
+                  }`}
+                >
+                  {order.status || "Unknown"}
                 </span>
               </p>
               <p className="payment">
