@@ -3,6 +3,7 @@ import "./Orders.css";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
+  const [expandedOrder, setExpandedOrder] = useState(null);
 
   useEffect(() => {
     const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -24,7 +25,7 @@ export default function Orders() {
         localStorage.setItem("orders", JSON.stringify(updated));
         return updated;
       });
-    }, 5000); // check mỗi 5 giây
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -51,6 +52,11 @@ export default function Orders() {
     localStorage.removeItem("orders");
   };
 
+  // Toggle mở/đóng chi tiết đơn hàng
+  const toggleExpand = (id) => {
+    setExpandedOrder(expandedOrder === id ? null : id);
+  };
+
   return (
     <div className="orders-page">
       <h2 className="orders-title">My Orders</h2>
@@ -61,55 +67,64 @@ export default function Orders() {
         <>
           {orders.map((order, index) => (
             <div className="order-card" key={order.id}>
-              <div className="order-header">
+              <div
+                className="order-header clickable"
+                onClick={() => toggleExpand(order.id)}
+              >
                 <p>
-                  <strong>Order #{index + 1}</strong>
+                  <strong>Order #{index + 1}</strong>{" "}
+                  <span
+                    className={`status ${
+                      order.status ? order.status.toLowerCase() : ""
+                    }`}
+                  >
+                    {order.status || "Unknown"}
+                  </span>
                 </p>
                 <div className="order-actions">
                   {order.status === "Pending" && (
                     <button
                       className="cancel-order-btn"
-                      onClick={() => handleCancelOrder(order.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCancelOrder(order.id);
+                      }}
                     >
                       Cancel Order
                     </button>
                   )}
                   <button
                     className="remove-order-btn"
-                    onClick={() => handleRemoveOrder(order.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemoveOrder(order.id);
+                    }}
                   >
                     Remove Order
                   </button>
                 </div>
               </div>
 
-              <p>
-                <strong>Order Date:</strong> {order.date}
-              </p>
-              <p>
-                <strong>Total:</strong> ${order.total}
-              </p>
-              <p>
-                <strong>Status:</strong>{" "}
-                <span
-                  className={`status ${
-                    order.status ? order.status.toLowerCase() : ""
-                  }`}
-                >
-                  {order.status || "Unknown"}
-                </span>
-              </p>
-              <p className="payment">
-                <strong>Payment:</strong> {order.payment}
-              </p>
-
-              <ul>
-                {order.items.map((item) => (
-                  <li key={item.id}>
-                    {item.name} x {item.quantity} (${item.price})
-                  </li>
-                ))}
-              </ul>
+              {expandedOrder === order.id && (
+                <div className="order-details">
+                  <p>
+                    <strong>Order Date:</strong> {order.date}
+                  </p>
+                  <p>
+                    <strong>Total:</strong> ${order.total}
+                  </p>
+                  <p className="payment">
+                    <strong>Payment:</strong> {order.payment}
+                  </p>
+                  <ul>
+                    {order.items.map((item) => (
+                      <li key={item.id}>
+                        {item.name} x {item.quantity} (${item.price})
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           ))}
 

@@ -39,6 +39,22 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.order-header p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.order-header .arrow {
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.order-header.open .arrow {
+  transform: rotate(90deg);
 }
 
 .order-actions {
@@ -143,4 +159,12 @@
 }
 .payment strong {
   color: #555;
+}
+
+.order-details {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+  border-radius: 8px;
 }
