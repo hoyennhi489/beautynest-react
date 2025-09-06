@@ -1,8 +1,11 @@
 .orders-page {
   max-width: 800px;
-  margin: 40px auto;
+  margin: auto;
   padding: 20px;
-  font-family: 'Segoe UI', sans-serif;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .orders-title {
@@ -14,9 +17,12 @@
 
 .no-orders {
   text-align: center;
-  font-size: 1rem;
   color: #888;
-  padding: 40px 0;
+  flex: 1; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
 }
 
 .order-card {
@@ -40,21 +46,6 @@
   align-items: center;
   margin-bottom: 12px;
   cursor: pointer;
-}
-
-.order-header p {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.order-header .arrow {
-  font-size: 0.9rem;
-  transition: transform 0.2s ease;
-}
-
-.order-header.open .arrow {
-  transform: rotate(90deg);
 }
 
 .order-actions {
