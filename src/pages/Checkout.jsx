@@ -24,6 +24,12 @@ export default function Checkout() {
       return;
     }
 
+    // validate số điện thoại (10–11 số)
+    if (!/^\d{10,11}$/.test(phone)) {
+      setError("⚠️ Phone number must be 10–11 digits.");
+      return;
+    }
+
     const newOrder = {
       id: Date.now(),
       name,
@@ -33,7 +39,7 @@ export default function Checkout() {
       items: cart,
       total: totalPrice.toFixed(2),
       date: new Date().toLocaleString(),
-      timestamp: Date.now(),       
+      timestamp: Date.now(),
       status: "Pending",
     };
 
@@ -59,10 +65,14 @@ export default function Checkout() {
           onChange={(e) => setName(e.target.value)}
         />
         <input
-          type="text"
+          type="tel"
           placeholder="Phone Number"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => {
+            const onlyNums = e.target.value.replace(/\D/g, ""); 
+            setPhone(onlyNums);
+          }}
+          maxLength={11}
         />
         <textarea
           placeholder="Shipping Address"

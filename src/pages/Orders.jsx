@@ -30,14 +30,12 @@ export default function Orders() {
     return () => clearInterval(interval);
   }, []);
 
-  // Xóa 1 đơn hàng
   const handleRemoveOrder = (id) => {
     const updatedOrders = orders.filter((order) => order.id !== id);
     setOrders(updatedOrders);
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
   };
 
-  // Hủy đơn hàng
   const handleCancelOrder = (id) => {
     const updatedOrders = orders.map((order) =>
       order.id === id ? { ...order, status: "Cancelled" } : order
@@ -46,13 +44,11 @@ export default function Orders() {
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
   };
 
-  // Xóa tất cả đơn hàng
   const handleClearAll = () => {
     setOrders([]);
     localStorage.removeItem("orders");
   };
 
-  // Toggle mở/đóng chi tiết đơn hàng
   const toggleExpand = (id) => {
     setExpandedOrder(expandedOrder === id ? null : id);
   };
@@ -110,19 +106,43 @@ export default function Orders() {
                   <p>
                     <strong>Order Date:</strong> {order.date}
                   </p>
-                  <p>
-                    <strong>Total:</strong> ${order.total}
-                  </p>
                   <p className="payment">
                     <strong>Payment:</strong> {order.payment}
                   </p>
-                  <ul>
+
+                  {/* 📍 Shipping Info */}
+                  <div className="shipping-info">
+                    <p className="shipping-title">Shipping Address</p>
+                    <div className="shipping-row">
+                      <span className="shipping-icon">📍</span>
+                      <span className="shipping-name">{order.name}</span>
+                      <span className="shipping-phone">({order.phone})</span>
+                    </div>
+                    <p className="shipping-address">{order.address}</p>
+                  </div>
+
+                  <div className="order-items">
                     {order.items.map((item) => (
-                      <li key={item.id}>
-                        {item.name} x {item.quantity} (${item.price})
-                      </li>
+                      <div className="order-item" key={item.id}>
+                        <img
+                          src={item.image || "https://via.placeholder.com/60"}
+                          alt={item.name}
+                          className="item-image"
+                        />
+                        <div className="item-info">
+                          <p className="item-name">{item.name}</p>
+                          <p className="item-qty">
+                            x{item.quantity} | ${item.price}
+                          </p>
+                        </div>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
+
+                  <div className="order-total">
+                    <span>Order Total:</span>
+                    <strong>${order.total}</strong>
+                  </div>
                 </div>
               )}
             </div>
