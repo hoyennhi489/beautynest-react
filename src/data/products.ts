@@ -1,4 +1,14 @@
-const products = [
+export type Product = {
+  id: number;
+  name: string;
+  category: string;
+  brand: string;
+  price: number;
+  image: string;
+  description: string;
+};
+
+const products: Product[] = [
   {
     id: 1,
     name: "Gentle Foaming Cleanser",

@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { CartContext } from "./CartContext";
+import { CartContext, type CartItem, type CartContextType } from "./CartContext";
+import type { Product } from "../data/products";
 
-export function CartProvider({ children }) {
-  const [cart, setCart] = useState(() => {
+type Props = {
+  children: React.ReactNode;
+};
+
+export function CartProvider({ children }: Props) {
+  const [cart, setCart] = useState<CartItem[]>(() => {
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
@@ -11,7 +16,7 @@ export function CartProvider({ children }) {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product) => {
+  const addToCart = (product: Product) => {
     setCart((prevCart) => {
       const existing = prevCart.find((p) => p.id === product.id);
       if (existing) {
@@ -23,11 +28,11 @@ export function CartProvider({ children }) {
     });
   };
 
-  const removeFromCart = (productId) => {
+  const removeFromCart = (productId: number) => {
     setCart((prevCart) => prevCart.filter((p) => p.id !== productId));
   };
 
-  const updateQuantity = (productId, quantity) => {
+  const updateQuantity = (productId: number, quantity: number) => {
     if (quantity <= 0) return removeFromCart(productId);
     setCart((prevCart) =>
       prevCart.map((p) => (p.id === productId ? { ...p, quantity } : p))
@@ -36,18 +41,14 @@ export function CartProvider({ children }) {
 
   const clearCart = () => setCart([]);
 
-  return (
-    <CartContext.Provider
-      value={{
-        cart,
-        setCart, 
-        addToCart,
-        removeFromCart,
-        updateQuantity,
-        clearCart,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  );
+  const value: CartContextType = {
+    cart,
+    setCart,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    clearCart,
+  };
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
