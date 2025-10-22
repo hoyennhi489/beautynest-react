@@ -1,23 +1,48 @@
 import React, { useEffect, useState } from "react";
 import "./Orders.css";
 
+type OrderItem = {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  image?: string;
+};
+
+type Order = {
+  id: number;
+  date: string;
+  payment: string;
+  name: string;
+  phone: string;
+  address: string;
+  items: OrderItem[];
+  total: number;
+  timestamp?: number;
+  status: "Pending" | "Completed" | "Cancelled";
+};
+
 export default function Orders() {
-  const [orders, setOrders] = useState([]);
-  const [expandedOrder, setExpandedOrder] = useState(null);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
 
   useEffect(() => {
-    const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    const savedOrders = (JSON.parse(localStorage.getItem("orders") || "[]") as Order[]).map(
+      (order) => ({
+        ...order,
+        status: order.status as "Pending" | "Completed" | "Cancelled",
+      })
+    );
     setOrders(savedOrders);
   }, []);
 
-  // Giả lập cập nhật trạng thái: sau 15 giây chuyển từ Pending -> Completed
   useEffect(() => {
     const interval = setInterval(() => {
       setOrders((prevOrders) => {
         const updated = prevOrders.map((order) => {
           if (order.status === "Pending" && order.timestamp) {
             if (Date.now() - order.timestamp > 15000) {
-              return { ...order, status: "Completed" };
+              return { ...order, status: "Completed" as const };
             }
           }
           return order;
@@ -30,15 +55,15 @@ export default function Orders() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleRemoveOrder = (id) => {
+  const handleRemoveOrder = (id: number) => {
     const updatedOrders = orders.filter((order) => order.id !== id);
     setOrders(updatedOrders);
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
   };
 
-  const handleCancelOrder = (id) => {
+  const handleCancelOrder = (id: number) => {
     const updatedOrders = orders.map((order) =>
-      order.id === id ? { ...order, status: "Cancelled" } : order
+      order.id === id ? { ...order, status: "Cancelled" as const } : order
     );
     setOrders(updatedOrders);
     localStorage.setItem("orders", JSON.stringify(updatedOrders));
@@ -49,7 +74,7 @@ export default function Orders() {
     localStorage.removeItem("orders");
   };
 
-  const toggleExpand = (id) => {
+  const toggleExpand = (id: number) => {
     setExpandedOrder(expandedOrder === id ? null : id);
   };
 
@@ -110,7 +135,6 @@ export default function Orders() {
                     <strong>Payment:</strong> {order.payment}
                   </p>
 
-                  {/* 📍 Shipping Info */}
                   <div className="shipping-info">
                     <p className="shipping-title">Shipping Address</p>
                     <div className="shipping-row">
