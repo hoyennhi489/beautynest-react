@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import './Footer.css';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import "./Footer.css";
+import { Link } from "react-router-dom";
 
-const Footer = () => {
-  const [email, setEmail] = useState("");
-  const [success, setSuccess] = useState(false);
+const Footer: React.FC = () => {
+  const [email, setEmail] = useState<string>(""); // string type
+  const [success, setSuccess] = useState<boolean>(false); // boolean type
 
   const handleSubscribe = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,9 +24,9 @@ const Footer = () => {
       <div className="footer-top">
         <h3>Subscribe to Our Newsletter</h3>
         <div className="subscribe-form">
-          <input 
-            type="email" 
-            placeholder="Enter your email" 
+          <input
+            type="email"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
