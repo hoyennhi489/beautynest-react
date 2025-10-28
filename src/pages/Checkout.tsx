@@ -3,34 +3,57 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import "./Checkout.css";
 
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+interface Order {
+  id: number;
+  name: string;
+  phone: string;
+  address: string;
+  payment: string;
+  items: CartItem[];
+  total: string;
+  date: string;
+  timestamp: number;
+  status: string;
+}
+
 export default function Checkout() {
-  const { cart, clearCart } = useContext(CartContext);
+  const { cart, clearCart } = useContext(CartContext) as {
+    cart: CartItem[];
+    clearCart: () => void;
+  };
+
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [payment, setPayment] = useState("Cash on Delivery (COD)");
-  const [error, setError] = useState("");
+  const [name, setName] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [payment, setPayment] = useState<string>("Cash on Delivery (COD)");
+  const [error, setError] = useState<string>("");
 
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
-  const handleConfirm = () => {
+  const handleConfirm = (): void => {
     if (!name || !phone || !address) {
       setError("⚠️ Please fill in all required fields.");
       return;
     }
 
-    // validate số điện thoại (10–11 số)
     if (!/^\d{10,11}$/.test(phone)) {
       setError("⚠️ Phone number must be 10–11 digits.");
       return;
     }
 
-    const newOrder = {
+    const newOrder: Order = {
       id: Date.now(),
       name,
       phone,
@@ -43,7 +66,9 @@ export default function Checkout() {
       status: "Pending",
     };
 
-    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    const existingOrders: Order[] =
+      JSON.parse(localStorage.getItem("orders") || "[]");
+
     localStorage.setItem("orders", JSON.stringify([newOrder, ...existingOrders]));
 
     clearCart();
@@ -69,7 +94,7 @@ export default function Checkout() {
           placeholder="Phone Number"
           value={phone}
           onChange={(e) => {
-            const onlyNums = e.target.value.replace(/\D/g, ""); 
+            const onlyNums = e.target.value.replace(/\D/g, "");
             setPhone(onlyNums);
           }}
           maxLength={11}

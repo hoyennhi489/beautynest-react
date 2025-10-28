@@ -1,9 +1,19 @@
-import React, { useContext } from 'react';
-import './FeaturedProducts.css';
-import { CartContext } from '../context/CartContext';
+import React, { useContext } from "react";
+import "./FeaturedProducts.css";
+import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
-const featured = [
+interface Product {
+  id: number;
+  name: string;
+  category: string;
+  brand: string;
+  price: number;
+  image: string;
+  description: string;
+}
+
+const featured: Product[] = [
   {
     id: 1,
     name: "Gentle Foaming Cleanser",
@@ -11,7 +21,7 @@ const featured = [
     brand: "CeraVe",
     price: 25,
     image: "cerave.jpg",
-    description: "Mild, soap-free cleanser for all skin types."
+    description: "Mild, soap-free cleanser for all skin types.",
   },
   {
     id: 2,
@@ -20,7 +30,7 @@ const featured = [
     brand: "The Ordinary",
     price: 20,
     image: "the-ordinary.jpg",
-    description: "Helps brighten skin and fade pigmentation."
+    description: "Helps brighten skin and fade pigmentation.",
   },
   {
     id: 3,
@@ -29,12 +39,14 @@ const featured = [
     brand: "Neutrogena",
     price: 24,
     image: "neutrogena.jpg",
-    description: "Deep hydration without heaviness."
-  }
+    description: "Deep hydration without heaviness.",
+  },
 ];
 
-export default function FeaturedProducts() {
-  const { addToCart } = useContext(CartContext);
+const FeaturedProducts: React.FC = () => {
+  const cart = useContext(CartContext);
+  if (!cart) return null;
+  const { addToCart } = cart;
 
   return (
     <div className="products-grid">
@@ -48,14 +60,13 @@ export default function FeaturedProducts() {
           </h3>
           <p className="product-brand">{item.brand}</p>
           <p className="product-price">${item.price.toFixed(2)}</p>
-          <button
-            className="add-to-cart-btn"
-            onClick={() => addToCart(item)}
-          >
+          <button className="add-to-cart-btn" onClick={() => addToCart(item)}>
             Add to Cart
           </button>
         </div>
       ))}
     </div>
   );
-}
+};
+
+export default FeaturedProducts;
