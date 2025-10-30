@@ -4,8 +4,13 @@ import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 
 export default function Cart() {
-  const { cart, removeFromCart, updateQuantity, setCart } =
-    useContext(CartContext);
+  const cartContext = useContext(CartContext);
+
+  if (!cartContext) {
+    throw new Error("CartContext is not available — please wrap your app with CartProvider.");
+  }
+
+  const { cart, removeFromCart, updateQuantity, setCart } = cartContext;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,7 +70,6 @@ export default function Cart() {
             <div className="summary-text">
               <strong>Total:</strong> ${totalPrice.toFixed(2)}
             </div>
-            {/* ✅ Điều hướng sang trang Checkout */}
             <button
               className="checkout-btn"
               onClick={() => navigate("/checkout")}
